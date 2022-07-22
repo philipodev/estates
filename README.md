@@ -108,7 +108,7 @@ function App(){
 
 ### Code examples
 
-* [Simple counters](https://estates-demo.stackblitz.io) (StackBlitz)
+* [Simple counters](https://stackblitz.com/edit/estates-demo?file=App.tsx) (StackBlitz)
 
 ## TODO
 
