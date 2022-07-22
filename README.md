@@ -1,6 +1,6 @@
 # estates
 
-![estates size](https://img.shields.io/badge/size-0.5kb-blue) [![Build and Test](https://github.com/philipodev/estates/actions/workflows/build-test.yml/badge.svg)](https://github.com/philipodev/estates/actions/workflows/build-test.yml) ![npm](https://img.shields.io/npm/v/estates)
+![estates size](https://img.shields.io/badge/size-0.5kb-blue) [![Build and Test](https://github.com/philipodev/estates/actions/workflows/build-test.yml/badge.svg)](https://github.com/philipodev/estates/actions/workflows/build-test.yml) [![npm](https://img.shields.io/npm/v/estates)](https://www.npmjs.com/package/estates)
 
 ---
 
@@ -13,11 +13,11 @@
 ## Installation
 
 ```bash
-yarn add estates immer
+yarn add estates
 ```
 
 ```bash
-npm install estates immer --save
+npm install estates --save
 ```
 
 ## How does it work?
@@ -59,6 +59,7 @@ function Counter() {
   return (
     <CounterEstate.Root>
       <Count />
+      <Buttons />
     </CounterEstate.Root>
   );
 }
