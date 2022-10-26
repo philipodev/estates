@@ -1,7 +1,7 @@
 {
   "name": "estates",
   "description": "a tiny (not global) state machine for react trees",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "license": "MIT",
   "files": [
