@@ -162,9 +162,5 @@ function App(){
 ### Code examples
 
 * [Simple counters](https://stackblitz.com/edit/estates-demo?file=App.tsx) (StackBlitz)
+* [Counter with MUI](https://stackblitz.com/edit/estates-example?file=demo.tsx) (StackBlitz)
 
-## TODO
-
-Feel free to help implement these features by opening pull requests
-
-- [ ] HOC's for `Root` and a connector for class components.
