@@ -10,6 +10,8 @@ export const Count: FC<Props> = () => {
     state: { count },
   } = useEstate(CounterEstate);
 
+  expect(count).toBe(count);
+
   return (
     <div>
       count: <span role={"count"}>{count}</span>
