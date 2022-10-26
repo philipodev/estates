@@ -1,5 +1,5 @@
 import { Draft } from "immer";
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 
 export interface EstateCreator<State, Actions> {
   initialState: State;
@@ -15,6 +15,13 @@ export interface Estate<State, Actions> {
   actions: Actions;
   Root: React.FC<EstateProviderProps<State>>;
   context: React.Context<EstateContext<State, Actions>>;
+  connect: <
+    OriginalProps extends {},
+    MappedProps extends Partial<OriginalProps>
+  >(
+    Component: React.ComponentType<OriginalProps>,
+    map: (state: State, actions: EstateActionsCallable<Actions>) => MappedProps
+  ) => React.FC<Omit<OriginalProps, keyof MappedProps>>;
 }
 
 export interface EstateContext<State, Actions> {
@@ -25,7 +32,7 @@ export interface EstateContext<State, Actions> {
 
 export type EstateDispatch = (action: string, ...args: any[]) => void;
 
-type EstateActionsWithoutState<Actions> = {
+export type EstateActionsWithoutState<Actions> = {
   [key in keyof Actions]: (...args: any[]) => void;
 };
 
@@ -50,3 +57,5 @@ setCount(state, count) becomes setCount(count) in the hook.
 type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R
   ? (...args: P) => R
   : never;
+
+export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;

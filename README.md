@@ -33,12 +33,31 @@ It uses `immer` (shipped with redux-toolkit) to make sure that the data is immut
 ## What it is not
 
 - A replacement to redux, mobx etc.
-- A global state machine
+- A global state machine (although it can, but it's not what it's made for)
+
+## Why?
+
+I wanted to have a tiny state machine for component trees rather than a global state or drilling props.
+This is a great solution for components that are dependent on multiple smaller components but where they all need to share the same state.
 
 ## How to use it
 
+Imagine the following folder structure:
+
+```
+Counter
+├── Counter.state.ts
+├── Counter.tsx
+├── Count.tsx
+├── CountButtons.tsx
+└── index.ts
+```
+
+
 ```tsx
-const CounterEstate = createEstate({
+// Counter.state.ts
+
+export const CounterEstate = createEstate({
   initialState: {
     count: 0,
   },
@@ -55,6 +74,9 @@ const CounterEstate = createEstate({
   },
 });
 
+// ====================
+// Counter.tsx
+
 function Counter() {
   return (
     <CounterEstate.Root>
@@ -64,6 +86,9 @@ function Counter() {
   );
 }
 
+// ====================
+// Count.tsx
+
 function Count() {
   const {
     state: { count },
@@ -72,7 +97,10 @@ function Count() {
   return <div>count: {count}</div>;
 }
 
-function Buttons() {
+// ====================
+// CountButtons.tsx
+
+function CountButtons() {
   const { increment, decrement, setCount } = useEstate(CounterEstate);
 
   return (
@@ -83,6 +111,31 @@ function Buttons() {
     </div>
   );
 }
+```
+
+### Connect components
+
+Sometimes you have components from other libraries, like UI libraries etc., that you want to connect to the estate without having to create a new component for it. You can do this by using the `connect` function.
+
+`connect()` will omit the props you pass in the map function and pass the rest to the connected component, so you can use it like you would normally use it, but without having to pass the already mapped props.
+
+```tsx
+import { CounterEstate } from './Counter';
+import MuiButton from '@mui/material/Button';
+
+const Button = CounterEstate.connect(MuiButton, (state, actions) => ({
+  onClick: actions.increment,
+  children: `Count is ${state.count}`,
+}))
+
+function Buttons() {
+  return (
+    <div>
+      <Button />
+    </div>
+  );
+}
+
 ```
 
 ### How it can be used
